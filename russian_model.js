@@ -34,7 +34,7 @@ const deleteRussian = (id) => {
       if (error) {
         reject(error)
       }
-      resolve(`Merchant deleted with ID: ${id}`)
+      resolve(`Word deleted with ID: ${id}`)
     })
   })
 }
