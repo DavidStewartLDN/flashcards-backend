@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3001
 
-const russian_model = require('./russian_model')
+const russian_model = require('./word_model')
 
 app.use(express.json())
 app.use(function (req, res, next) {

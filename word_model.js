@@ -7,9 +7,9 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getRussian = () => {
+const getWords = () => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM russian ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM words ORDER BY id ASC', (error, results) => {
       if (error) {
         reject(error)
       }
@@ -17,20 +17,20 @@ const getRussian = () => {
     })
   }) 
 }
-const createRussian = (body) => {
+const createWord = (body) => {
   return new Promise(function(resolve, reject) {
-    const { english, native, latin_script } = body
-    pool.query('INSERT INTO russian (english, native, latin_script) VALUES ($1, $2, $3) RETURNING *', [english, native, latin_script], (error, results) => {
+    const { language, english, native, latin_script } = body
+    pool.query('INSERT INTO words (language, native, latin_script) VALUES ($1, $2, $3, $4) RETURNING *', [language, english, native, latin_script], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new word has been added: ${results.rows[0]}`)
+      resolve(`A new word has been added: ${english}`)
     })
   })
 }
-const deleteRussian = (id) => {
+const deleteWord = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('DELETE FROM russian WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM words WHERE id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -40,7 +40,7 @@ const deleteRussian = (id) => {
 }
 
 module.exports = {
-  getRussian,
-  createRussian,
-  deleteRussian,
+  getWords,
+  createWord,
+  deleteWord,
 }
