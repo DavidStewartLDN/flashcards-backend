@@ -19,12 +19,12 @@ const getRussian = () => {
 }
 const createRussian = (body) => {
   return new Promise(function(resolve, reject) {
-    const { name, email } = body
-    pool.query('INSERT INTO russian (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
+    const { english, native, latin_script } = body
+    pool.query('INSERT INTO russian (english, native, latin_script) VALUES ($1, $2, $3) RETURNING *', [english, native, latin_script], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new merchant has been added added: ${results.rows[0]}`)
+      resolve(`A new word has been added: ${results.rows[0]}`)
     })
   })
 }
