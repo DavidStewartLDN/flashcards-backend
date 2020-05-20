@@ -20,7 +20,7 @@ const getWords = () => {
 const createWord = (body) => {
   return new Promise(function(resolve, reject) {
     const { language, english, native, latin_script } = body
-    pool.query('INSERT INTO words (language, native, latin_script) VALUES ($1, $2, $3, $4) RETURNING *', [language, english, native, latin_script], (error, results) => {
+    pool.query('INSERT INTO words (language, english, native, latin_script) VALUES ($1, $2, $3, $4) RETURNING *', [language, english, native, latin_script], (error, results) => {
       if (error) {
         reject(error)
       }
