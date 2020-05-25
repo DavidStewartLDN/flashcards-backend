@@ -22,6 +22,16 @@ app.get('/', (req, res) => {
   })
 })
 
+app.get('/word/:id', (req, res) => {
+  word_model.getWord(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
 app.post('/word', (req, res) => {
   word_model.createWord(req.body)
   .then(response => {

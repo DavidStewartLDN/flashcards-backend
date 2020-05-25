@@ -17,6 +17,16 @@ const getWords = () => {
     })
   }) 
 }
+const getWord = (id) => {
+  return new Promise(function(resolve, reject) {
+    pool.query('SELECT * FROM words WHERE id=$1', [id], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results.rows);
+    })
+  }) 
+}
 const createWord = (body) => {
   return new Promise(function(resolve, reject) {
     const { language, english, native, latin_script } = body
@@ -41,6 +51,7 @@ const deleteWord = (id) => {
 
 module.exports = {
   getWords,
+  getWord,
   createWord,
   deleteWord,
 }
