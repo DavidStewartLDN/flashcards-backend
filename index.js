@@ -4,6 +4,7 @@ const port = 3001
 
 const russian_model = require('./russian_model')
 const italian_model = require('./italian_model')
+const mandarin_model = require('./mandarin_model')
 
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -13,7 +14,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// russian table
+// Russian table
+
 app.get('/russian', (req, res) => {
   russian_model.getRussian()
   .then(response => {
@@ -54,7 +56,7 @@ app.delete('/russian/word/:id', (req, res) => {
   })
 })
 
-// italian table
+// Italian table
 
 app.get('/italian', (req, res) => {
   italian_model.getItalian()
@@ -88,6 +90,49 @@ app.post('/italian/word', (req, res) => {
 
 app.delete('/italian/word/:id', (req, res) => {
   italian_model.deleteItalianWord(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+
+// Mandarin table
+
+app.get('/mandarin', (req, res) => {
+  mandarin_model.getMandarin()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.get('/mandarin/word/:id', (req, res) => {
+  mandarin_model.getMandarinWord(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.post('/mandarin/word', (req, res) => {
+  mandarin_model.createMandarinWord(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.delete('/mandarin/word/:id', (req, res) => {
+  mandarin_model.deleteMandarinWord(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })
