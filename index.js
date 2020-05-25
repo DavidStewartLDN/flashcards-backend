@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 const port = 3001
 
-const word_model = require('./word_model')
 const russian_model = require('./russian_model')
+const italian_model = require('./italian_model')
 
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -13,6 +13,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+// russian table
 app.get('/russian', (req, res) => {
   russian_model.getRussian()
   .then(response => {
@@ -45,6 +46,48 @@ app.post('/russian/word', (req, res) => {
 
 app.delete('/russian/word/:id', (req, res) => {
   russian_model.deleteRussianWord(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+// italian table
+
+app.get('/italian', (req, res) => {
+  italian_model.getItalian()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.get('/italian/word/:id', (req, res) => {
+  italian_model.getItalianWord(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.post('/italian/word', (req, res) => {
+  italian_model.createItalianWord(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.delete('/italian/word/:id', (req, res) => {
+  italian_model.deleteItalianWord(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })

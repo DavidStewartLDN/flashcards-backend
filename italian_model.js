@@ -7,9 +7,9 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getWords = () => {
+const getItalian = () => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM words ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM italian ORDER BY id ASC', (error, results) => {
       if (error) {
         reject(error)
       }
@@ -17,9 +17,9 @@ const getWords = () => {
     })
   }) 
 }
-const getWord = (id) => {
+const getItalianWord = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM words WHERE id=$1', [id], (error, results) => {
+    pool.query('SELECT * FROM italian WHERE id=$1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -27,10 +27,10 @@ const getWord = (id) => {
     })
   }) 
 }
-const createWord = (body) => {
+const createItalianWord = (body) => {
   return new Promise(function(resolve, reject) {
-    const { language, english, native, latin_script } = body
-    pool.query('INSERT INTO words (language, english, native, latin_script) VALUES ($1, $2, $3, $4) RETURNING *', [language, english, native, latin_script], (error, results) => {
+    const { english, native, latin_script } = body
+    pool.query('INSERT INTO italian (english, native, latin_script) VALUES ($1, $2, $3) RETURNING *', [english, native, latin_script], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -38,9 +38,9 @@ const createWord = (body) => {
     })
   })
 }
-const deleteWord = (id) => {
+const deleteItalianWord = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('DELETE FROM words WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM italian WHERE id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
@@ -50,8 +50,8 @@ const deleteWord = (id) => {
 }
 
 module.exports = {
-  getWords,
-  getWord,
-  createWord,
-  deleteWord,
+  getItalian,
+  getItalianWord,
+  createItalianWord,
+  deleteItalianWord,
 }
