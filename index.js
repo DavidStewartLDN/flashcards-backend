@@ -3,6 +3,7 @@ const app = express()
 const port = 3001
 
 const word_model = require('./word_model')
+const russian_model = require('./russian_model')
 
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -12,8 +13,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
-  word_model.getWords()
+app.get('/russian', (req, res) => {
+  russian_model.getRussian()
   .then(response => {
     res.status(200).send(response);
   })
@@ -22,8 +23,8 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/word/:id', (req, res) => {
-  word_model.getWord(req.params.id)
+app.get('/russian/word/:id', (req, res) => {
+  russian_model.getRussianWord(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })
@@ -32,8 +33,8 @@ app.get('/word/:id', (req, res) => {
   })
 })
 
-app.post('/word', (req, res) => {
-  word_model.createWord(req.body)
+app.post('/russian/word', (req, res) => {
+  russian_model.createRussianWord(req.body)
   .then(response => {
     res.status(200).send(response);
   })
@@ -42,8 +43,8 @@ app.post('/word', (req, res) => {
   })
 })
 
-app.delete('/word/:id', (req, res) => {
-  word_model.deleteWord(req.params.id)
+app.delete('/russian/word/:id', (req, res) => {
+  russian_model.deleteRussianWord(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })
